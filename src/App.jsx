@@ -168,6 +168,76 @@ const useDarkMode = () => {
   return [isDarkMode, setIsDarkMode];
 };
 
+// --- 7. MODAL COMPONENT (NEW) ---
+
+const MediaModal = ({ isOpen, media, onClose }) => {
+    const modalRef = useRef(null);
+
+    // Close on escape key
+    useEffect(() => {
+        const handleKey = (event) => {
+            if (event.key === 'Escape' && isOpen) {
+                onClose();
+            }
+        };
+        document.addEventListener('keydown', handleKey);
+        return () => document.removeEventListener('keydown', handleKey);
+    }, [isOpen, onClose]);
+
+    // Handle click outside modal content
+    const handleBackdropClick = useCallback(
+        (event) => {
+            if (modalRef.current && modalRef.current === event.target) {
+                onClose();
+            }
+        },
+        [onClose]
+    );
+
+    if (!isOpen) return null;
+
+    return (
+        <div
+            ref={modalRef}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/20 backdrop-blur-xl transition-opacity duration-300"
+            onClick={handleBackdropClick}
+        >
+            <div className="relative max-h-[80vh] w-auto max-w-[90vw] flex flex-col items-center">
+                {/* Media Title */}
+                <h4 className="text-white text-center text-lg font-semibold mb-2 truncate max-w-full">
+                    {media.title || 'Media Preview'}
+                </h4>
+
+                {/* Media Content */}
+                <div className="bg-white/10 border border-white/20 rounded-xl overflow-hidden shadow-2xl flex items-center justify-center backdrop-blur-lg">
+                    {media.type === 'image' ? (
+                        <img
+                            src={media.path}
+                            alt={media.title}
+                            className="max-h-[80vh] max-w-[90vw] object-contain"
+                        />
+                    ) : (
+                        <video
+                            src={media.path}
+                            className="max-h-[80vh] max-w-[90vw] object-contain"
+                            controls
+                            autoPlay
+                            loop
+                            playsInline
+                        >
+                            Your browser does not support the video tag.
+                        </video>
+                    )}
+                </div>
+            </div>
+        </div>
+    );
+};
+
+
+
+
+
 // --- 2. CORE UI COMPONENTS ---
 
 /**
@@ -219,7 +289,8 @@ const MediaPlaceholder = ({ type, assetPath, isMain = false }) => {
   }, [assetPath, type]);
 
   // Determine size classes
-  const sizeClasses = isMain ? 'min-h-[120px]' : 'min-h-[120px]';
+  // Removed explicit min-h for isMain to let aspect-video container control it
+  const sizeClasses = isMain ? '' : 'min-h-[120px]'; 
   // Use a common class set for both media and placeholder containers
   const containerClasses = `rounded-lg h-full w-full ${sizeClasses}`;
   const mediaClasses = `${containerClasses} object-cover`;
@@ -244,10 +315,11 @@ const MediaPlaceholder = ({ type, assetPath, isMain = false }) => {
         <video
           src={assetPath}
           className={mediaClasses}
-          controls
+          controls={!isMain} // Show controls only if not main/autoplay
           loop
           muted
           autoPlay={isMain} // Autoplay for main video, if applicable
+          playsInline // Important for mobile devices
           onError={() => setLoadError(true)}
         >
           Your browser does not support the video tag.
@@ -260,7 +332,7 @@ const MediaPlaceholder = ({ type, assetPath, isMain = false }) => {
   const Icon = type === 'image' ? PLACEHOLDER_ICONS.image : PLACEHOLDER_ICONS.video;
 
   return (
-    <div className={`flex flex-col items-center justify-center bg-gray-200 dark:bg-gray-700 rounded-lg h-full w-full p-4 border border-dashed border-gray-400 dark:border-gray-500 ${isMain ? 'min-h-[250px]' : 'min-h-[120px]'}`}>
+    <div className={`flex flex-col items-center justify-center bg-gray-200 dark:bg-gray-700 p-4 border border-dashed border-gray-400 dark:border-gray-500 ${containerClasses}`}>
       <Icon size={isMain ? 40 : 28} className="text-gray-500 dark:text-gray-400 mb-2" />
       <p className={`font-medium text-gray-700 dark:text-gray-300 ${isMain ? 'text-lg' : 'text-sm'}`}>
         {type === 'image' ? 'Image/Thumbnail Placeholder' : 'Video Placeholder'}
@@ -415,18 +487,19 @@ const ExperienceSection = ({ experience }) => {
   );
 };
 
-const ProjectCard = ({ project }) => {
+const ProjectCard = ({ project, onOpenMedia }) => {
   const scrollRef = useRef(null);
   const [scrollProgress, setScrollProgress] = useState(0);
 
   const allMedia = useMemo(() => {
     let media = [];
-    if (project.intro_video) {
-      media.push({ type: 'video', path: project.intro_video });
+    // 1. Add Feature Videos
+    if (project.feature_videos && project.feature_videos.length > 0) {
+      media = media.concat(project.feature_videos.map(path => ({ type: 'video', path, title: project.name + " Feature Video" })));
     }
-    media = media.concat(project.screenshots.map(path => ({ type: 'image', path })));
-    if (project.feature_videos) {
-      media = media.concat(project.feature_videos.map(path => ({ type: 'video', path })));
+    // 2. Add Screenshots (Images)
+    if (project.screenshots && project.screenshots.length > 0) {
+      media = media.concat(project.screenshots.map((path, index) => ({ type: 'image', path, title: project.name + ` Screenshot ${index + 1}` })));
     }
     return media;
   }, [project]);
@@ -537,7 +610,9 @@ const ProjectCard = ({ project }) => {
             className="flex space-x-3 overflow-x-scroll pb-4 scrollbar-hide snap-x snap-mandatory"
           >
             {allMedia.map((mediaItem, i) => (
-              <div key={i} className="flex-shrink-0 w-64 snap-center aspect-[9/16] overflow-hidden rounded-lg shadow-md border border-gray-300 dark:border-gray-600">
+              <div key={i} className="flex-shrink-0 w-64 snap-center aspect-[9/16] overflow-hidden rounded-lg shadow-md border border-gray-300 dark:border-gray-600 cursor-pointer transition-transform hover:scale-[1.03]"
+                onClick={() => onOpenMedia(mediaItem)} // CLICK HANDLER ADDED HERE
+              >
                 <MediaPlaceholder type={mediaItem.type} assetPath={mediaItem.path} />
               </div>
             ))}
@@ -556,12 +631,12 @@ const ProjectCard = ({ project }) => {
   );
 };
 
-const ProjectsSection = ({ projects }) => {
+const ProjectsSection = ({ projects, onOpenMedia }) => {
   // Find the config for this section
   const sectionConfig = SECTION_CONFIG.find(s => s.id === 'projects');
   const SectionIcon = ICON_MAP[sectionConfig?.iconKey];
 
-  return (
+   return (
     <SectionCard 
     id="projects" 
     title={sectionConfig?.title || 'Projects'} 
@@ -569,7 +644,7 @@ const ProjectsSection = ({ projects }) => {
   >
     <div className="grid grid-cols-1 gap-10">
       {projects.map(project => (
-        <ProjectCard key={project.tag} project={project} />
+        <ProjectCard key={project.tag} project={project} onOpenMedia={onOpenMedia} />
       ))}
     </div>
   </SectionCard>
@@ -622,6 +697,22 @@ const App = () => {
   const [isDarkMode, setIsDarkMode] = useDarkMode();
   const [activeSection, setActiveSection] = useState('summary');
   const [isMenuOpen, setIsMenuOpen] = useState(false); // For mobile menu toggle
+  // NEW MODAL STATE
+  const [modalState, setModalState] = useState({ isOpen: false, type: null, path: null, title: null });
+
+  // Handlers for the Modal
+  const openModal = useCallback((mediaItem) => {
+    setModalState({
+      isOpen: true,
+      type: mediaItem.type,
+      path: mediaItem.path,
+      title: mediaItem.title || 'Media Preview'
+    });
+  }, []);
+
+  const closeModal = useCallback(() => {
+    setModalState(prev => ({ ...prev, isOpen: false }));
+  }, []);
 
   // Filter sections based on the configuration
   const visibleSections = useMemo(() => SECTION_CONFIG.filter(s => s.isVisible), []);
@@ -774,7 +865,7 @@ const App = () => {
                 case 'experience':
                     return <ExperienceSection key="experience" experience={PORTFOLIO_DATA.professional_experience} />;
                 case 'projects':
-                    return <ProjectsSection key="projects" projects={PORTFOLIO_DATA.projects} />;
+                    return <ProjectsSection key="projects" projects={PORTFOLIO_DATA.projects} onOpenMedia={openModal} />;
                 case 'education':
                     return <EducationSection key="education" education={PORTFOLIO_DATA.education} interests={PORTFOLIO_DATA.interests} />;
                 default:
@@ -790,6 +881,13 @@ const App = () => {
           </p>
         </footer>
       </div>
+
+      {/* 5. MEDIA MODAL (Rendered outside the main content flow) */}
+      <MediaModal
+        isOpen={modalState.isOpen}
+        media={modalState}
+        onClose={closeModal}
+      />
     </div>
   );
 };
