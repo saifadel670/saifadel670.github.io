@@ -93,6 +93,7 @@ const PORTFOLIO_DATA = {
             "thumbnail": "/assets/ryze/thumb_image.png",
             "screenshots": ["/assets/ryze/image_1.png", "/assets/ryze/image_2.png", "/assets/ryze/image_3.png", "/assets/ryze/image_4.png", "/assets/ryze/image_5.png", "/assets/ryze/image_6.png"],
             "intro_video": "/assets/ryze/promo_video.mp4",
+            "feature_videos": [],
             "tech": ["Swift", "SwiftUI", "UIKit", "Combine", "Clean Architecture", "Coordinator Pattern"]
         },
         {
@@ -104,6 +105,7 @@ const PORTFOLIO_DATA = {
             "thumbnail": "/assets/mybl/thumb_image.png",
             "screenshots": ["/assets/mybl/image_1.png", "/assets/mybl/image_2.png", "/assets/mybl/image_3.png", "/assets/mybl/image_4.png"],
             "intro_video": undefined, // Explicitly missing video
+            "feature_videos": [],
             "tech": ["Swift", "UIKit", "Combine", "MVVM", "Clean Architecture"]
         },
         {
@@ -125,6 +127,7 @@ const PORTFOLIO_DATA = {
             "appStore": "https://apps.apple.com/us/app/maya-digital-health/id995058774",
             "thumbnail": "/assets/maya/thumb_image.jpg",
             "screenshots": ["/assets/maya/image_1.jpg", "/assets/maya/image_2.jpg", "/assets/maya/image_3.jpg", "/assets/maya/image_4.jpg", "/assets/maya/image_5.jpg", "/assets/maya/image_6.jpg", "/assets/maya/image_7.jpg", "/assets/maya/image_8.jpg", "/assets/maya/image_9.jpg", "/assets/maya/image_10.jpg", "/assets/maya/image_11.jpg", "/assets/maya/image_12.jpg"],
+            "feature_videos": [],
             "tech": ["Swift", "UIKit", "Combine", "MVVM", "Clean Architecture"]
         }
     ],
@@ -208,7 +211,52 @@ const SectionCard = ({ icon, title, id, children }) => {
  * Handles image/video placeholders using configurable icons.
  */
 const MediaPlaceholder = ({ type, assetPath, isMain = false }) => {
-  // Config-dependent Icon
+  const [loadError, setLoadError] = useState(false);
+
+  // If the path changes, reset the error state to attempt loading again
+  useEffect(() => {
+    setLoadError(false);
+  }, [assetPath, type]);
+
+  // Determine size classes
+  const sizeClasses = isMain ? 'min-h-[120px]' : 'min-h-[120px]';
+  // Use a common class set for both media and placeholder containers
+  const containerClasses = `rounded-lg h-full w-full ${sizeClasses}`;
+  const mediaClasses = `${containerClasses} object-cover`;
+
+  // 1. TRY TO RENDER MEDIA (if path exists and no load error occurred)
+  if (assetPath && !loadError) {
+    if (type === 'image') {
+      return (
+        <img
+          src={assetPath}
+          alt={`Preview asset: ${assetPath}`}
+          className={mediaClasses}
+          // If image fails to load, set error state to render placeholder
+          onError={() => setLoadError(true)}
+          loading="lazy"
+        />
+      );
+    }
+
+    if (type === 'video') {
+      return (
+        <video
+          src={assetPath}
+          className={mediaClasses}
+          controls
+          loop
+          muted
+          autoPlay={isMain} // Autoplay for main video, if applicable
+          onError={() => setLoadError(true)}
+        >
+          Your browser does not support the video tag.
+        </video>
+      );
+    }
+  }
+
+  // 2. RENDER PLACEHOLDER (if path is missing, type is unknown, or load error occurred)
   const Icon = type === 'image' ? PLACEHOLDER_ICONS.image : PLACEHOLDER_ICONS.video;
 
   return (
@@ -218,7 +266,7 @@ const MediaPlaceholder = ({ type, assetPath, isMain = false }) => {
         {type === 'image' ? 'Image/Thumbnail Placeholder' : 'Video Placeholder'}
       </p>
       <p className={`text-xs text-gray-500 dark:text-gray-400 break-all mt-1 italic ${isMain ? 'max-w-xs' : 'max-w-full'} overflow-hidden whitespace-nowrap overflow-ellipsis`}>
-        {assetPath}
+        {assetPath || 'No asset path provided'}
       </p>
     </div>
   );
