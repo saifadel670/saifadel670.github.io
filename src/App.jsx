@@ -4,19 +4,10 @@ import {
     Anchor, CheckCircle, Smartphone, Sun, Moon, Feather, Image, Video, AppWindow, Activity, TestTube, Cpu, Layers, HardHat, ChevronsLeft, ChevronsRight, LogIn, LogOut, Menu
 } from 'lucide-react';
 
-// --- CONFIGURATION START (Same as previous version) ---
-
-// --- 1. ICON MAP (Maps string keys to actual LucideIcon components) ---
 const ICON_MAP = {
     Briefcase, GraduationCap, Code, Mail, Phone, MapPin, Linkedin, Settings, Clock, Zap, BookOpen,
     Anchor, CheckCircle, Smartphone, Sun, Moon, Feather, Image, Video, AppWindow, Activity, TestTube, Cpu, Layers, HardHat, ChevronsLeft, ChevronsRight, LogIn, LogOut, Menu
 };
-
-// --- 2. CONFIGURATION INTERFACES ---
-// (Typescript interfaces converted to simple type structure for inline configuration)
-
-// --- 3. UI/LAYOUT CONFIGURATION ---
-
 const SECTION_CONFIG = [
     { id: 'skills', title: 'Technical Skills', iconKey: 'Code', isVisible: true },
     { id: 'experience', title: 'Professional Experience', iconKey: 'Briefcase', isVisible: true },
@@ -144,12 +135,7 @@ const PORTFOLIO_DATA = {
     },
     "interests": ['Exploring new destinations through motorcycle touring', 'Mobile app UI/UX design trends'],
 }
-
-
-// --- CONFIGURATION END ---
-
-
-// --- 1. HELPER HOOKS ---
+// --- UTILITY HOOKS & COMPONENTS ---
 
 /**
  * Custom hook to manage dark mode state and persist it
@@ -217,6 +203,7 @@ const SectionCard = ({ icon, title, id, children }) => {
   );
 };
 
+
 /**
  * Handles image/video placeholders using configurable icons.
  */
@@ -243,6 +230,7 @@ const MediaPlaceholder = ({ type, assetPath, isMain = false }) => {
 const HeaderSection = ({ data }) => (
   // Added pt-16 for desktop to prevent content overlap with sticky nav.
   <header className="text-center mt-4 pt-4 lg:pt-16 pb-10 px-4 mb-10"> 
+    {/* Initials Avatar */}
     <div className="bg-indigo-600 w-24 h-24 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-4xl font-extrabold tracking-widest shadow-inner ring-4 ring-indigo-300 dark:ring-indigo-700">
       {data.name.split(' ').map(n => n[0]).join('')}
     </div>
@@ -616,13 +604,40 @@ const App = () => {
     return () => observer.disconnect();
   }, [visibleSections]);
 
+  const scrollToSection = useCallback((id) => {
+    // Offset the scroll to account for the sticky header (approx 64px based on h-16 + padding)
+    const element = document.getElementById(id);
+    if (element) {
+        const offset = 64; 
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+        });
+    }
+    setIsMenuOpen(false); // Close menu after selection on mobile
+  }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-inter transition-colors duration-300">
-      {/* Global Style for hiding scrollbar in carousel */}
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans antialiased transition-colors duration-300">
       <style>{`
+        /* Hide scrollbar for gallery but allow scrolling */
         .scrollbar-hide::-webkit-scrollbar {
             display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
+        }
+        /* Custom scrollbar for mobile menu, if needed */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #9CA3AF;
+            border-radius: 4px;
         }
       `}</style>
       
@@ -640,11 +655,15 @@ const App = () => {
       {/* MOBILE MENU TOGGLE BUTTON (Fixed bottom-right for easy access) */}
       <div className="lg:hidden fixed bottom-4 right-4 z-50">
           <button
-              onClick={() => setIsMenuOpen(true)}
-              title="Open Navigation Menu"
-              className="p-3 rounded-full bg-indigo-600 text-white shadow-xl hover:bg-indigo-700 transition-colors"
+              onClick={() => setIsMenuOpen(prev => !prev)}
+              title={isMenuOpen ? "Close Navigation Menu" : "Open Navigation Menu"}
+              className={`p-3 rounded-full shadow-2xl transition-all duration-300 transform 
+                         ${isMenuOpen 
+                           ? 'bg-indigo-600/90 text-white hover:bg-indigo-700/90 ring-4 ring-indigo-500/50' 
+                           : 'bg-white/90 dark:bg-gray-700/90 text-gray-800 dark:text-gray-200 hover:bg-white dark:hover:bg-gray-600 ring-2 ring-gray-300/50 dark:ring-gray-600/50'}
+                         backdrop-blur-sm`}
           >
-              <ICON_MAP.Menu size={24} />
+            {isMenuOpen ? <ICON_MAP.ChevronsRight size={20} /> : <ICON_MAP.Menu size={20} />}
           </button>
       </div>
 
@@ -663,23 +682,19 @@ const App = () => {
                     lg:bg-white/90 lg:dark:bg-gray-800/90 lg:shadow-xl lg:rounded-xl lg:p-3 lg:mb-10 lg:border lg:border-gray-200 lg:dark:border-gray-700/50
                 `}
             >
-                {/* Close Button for Mobile Menu */}
-                <div className="p-6 flex justify-end lg:hidden">
-                    <button onClick={() => setIsMenuOpen(false)} className="p-2 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-                        <ICON_MAP.ChevronsRight size={28} />
-                    </button>
-                </div>
-                
-                {/* Navigation List - Sticky on Desktop, Full-Height on Mobile */}
-                <div className="w-full h-full lg:h-auto overflow-y-auto custom-scrollbar">
+                {/* Nav Links */}
+                <div className="w-full h-full lg:h-auto overflow-y-auto custom-scrollbar pt-6 lg:pt-0">
                     <ul className="flex flex-col lg:flex-row lg:justify-center space-y-2 lg:space-y-0 lg:space-x-6 p-6 lg:p-0">
                         {visibleSections.map(item => {
                             const isActive = activeSection === item.id;
                             const Icon = ICON_MAP[item.iconKey];
                             return (
                                 <li key={item.id} className="w-full lg:w-auto">
-                                    <a
-                                        href={`#${item.id}`}
+                                    <button
+                                        onClick={() => {
+                                            scrollToSection(item.id);
+                                            setActiveSection(item.id); // Also set active state immediately for feedback
+                                        }}
                                         className={`
                                             flex items-center p-3 rounded-xl font-medium transition-all duration-300 whitespace-nowrap justify-start lg:justify-center text-lg lg:text-base
                                             ${isActive
@@ -687,14 +702,10 @@ const App = () => {
                                                 : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100/70 dark:hover:bg-gray-700/70'
                                             } backdrop-blur-sm w-full
                                         `}
-                                        onClick={() => {
-                                            setActiveSection(item.id);
-                                            setIsMenuOpen(false); // Close menu on click for mobile
-                                        }}
                                     >
                                         <Icon size={18} className="mr-3 lg:mr-2" />
                                         <span>{item.title}</span>
-                                    </a>
+                                    </button>
                                 </li>
                             );
                         })}
