@@ -91,7 +91,7 @@ const PORTFOLIO_DATA = {
       "tag": "ryze",
       "project_info": "Telco app with dashboard-controlled modular features",
       "description": "Spearheaded the development of business-guided modular features, ensuring on-time market launches to drive revenue and enhance user engagement. Driven the evolution of a dashboard-controlled, component-based iOS app, ensuring scalability and maintainability using Clean Architecture and the Coordinator pattern for seamless navigation. Accelerated time-to-market by delivering the MVP within 3 months and achieving a fully functional, business-ready release within 8 months, enabling the app to become a leading telco app in Bangladesh.",
-      "appStore": "https://apps.apple.com/us/app/ryze/id6475657753",
+      "appStore": "https://apps.apple.com/us/app/ryze-bangladesh/id6736612816",
       "thumbnail": "/assets/ryze/thumb_image.png",
       "screenshots": ["/assets/ryze/image_1.png", "/assets/ryze/image_2.png", "/assets/ryze/image_3.png", "/assets/ryze/image_4.png", "/assets/ryze/image_5.png", "/assets/ryze/image_6.png"],
       "intro_video": "/assets/ryze/promo_video.mp4",
@@ -103,7 +103,7 @@ const PORTFOLIO_DATA = {
       "tag": "my_bl",
       "project_info": "Banglalink self-care app",
       "description": "Optimized app performance by introducing new features that streamlined user interactions and significantly improved stability. Enhanced codebase efficiency, contributing to accelerated release cycles and quicker time-to-market for new features. Drove increased user engagement, positive app store ratings, and notable revenue growth through effective feature rollout and performance improvements as a key team player.",
-      "appStore": "https://apps.apple.com/us/app/mybl/id1454641124",
+      "appStore": "https://apps.apple.com/ca/app/mybl/id934133022",
       "thumbnail": "/assets/mybl/thumb_image.png",
       "screenshots": ["/assets/mybl/image_1.png", "/assets/mybl/image_2.png", "/assets/mybl/image_3.png", "/assets/mybl/image_4.png", "/assets/mybl/image_5.png", "/assets/mybl/image_6.png", "/assets/mybl/image_7.png", "/assets/mybl/image_8.png", "/assets/mybl/image_9.png", "/assets/mybl/image_10.png"],
       "intro_video": undefined, // Explicitly missing video
@@ -126,7 +126,7 @@ const PORTFOLIO_DATA = {
       "tag": "maya",
       "project_info": "Digital health app",
       "description": "Led the iOS revamp of Maya, a leading digital health app offering on-demand access to expert medical advice through video/voice consultations, personalized Q&A, and wellness content. Rebuilt the app with a modern architecture and refined UI/UX to boost performance, streamline navigation, and enhance feature accessibility across real-time consultations, AI-driven search, and interactive health tools. Enhanced user engagement by developing and integrating health articles, period tracker, vaccine tracker, daily wellness tips, and pregnancy tracker features into a scalable iOS application.",
-      "appStore": "https://apps.apple.com/us/app/maya-digital-health/id995058774",
+      "appStore": "https://apps.apple.com/us/app/maya-your-health-assistant/id1523658289",
       "thumbnail": "/assets/maya/thumb_image.jpg",
       "screenshots": ["/assets/maya/image_1.jpg", "/assets/maya/image_2.jpg", "/assets/maya/image_3.jpg", "/assets/maya/image_4.jpg", "/assets/maya/image_5.jpg", "/assets/maya/image_6.jpg", "/assets/maya/image_7.jpg", "/assets/maya/image_8.jpg", "/assets/maya/image_9.jpg", "/assets/maya/image_10.jpg", "/assets/maya/image_11.jpg", "/assets/maya/image_12.jpg"],
       "feature_videos": [],
@@ -153,7 +153,7 @@ const useDarkMode = () => {
     const storedTheme = localStorage.getItem('theme');
 
     if (storedTheme === 'dark' || (!storedTheme && prefersDark)) {
-      setIsDarkMode(true);
+      setIsDarkMode(false);
     }
   }, []);
 
@@ -490,8 +490,8 @@ const ExperienceSection = ({ experience }) => {
       <ol className="relative border-l border-gray-200 dark:border-gray-700 ml-2">
         {experience.map((job, index) => (
           <li key={index} className="mb-10 ml-6 p-4 bg-white/50 dark:bg-gray-700/50 rounded-lg backdrop-blur-sm border border-gray-100 dark:border-gray-600 transition-shadow hover:shadow-lg">
-            <span className="absolute flex items-center justify-center w-6 h-6 bg-indigo-200 rounded-full -left-3 ring-8 ring-white dark:ring-gray-800 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200">
-              {index === 0 ? <ICON_MAP.Zap size={14} /> : <ICON_MAP.Anchor size={14} />}
+            <span className="absolute flex items-center justify-center w-6 h-6 bg-indigo-200 rounded-full -left-3 ring-6 ring-white dark:ring-gray-800 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200">
+              {<ICON_MAP.Anchor size={14} />}
             </span>
 
             {/* Company Name and Dates */}
@@ -502,7 +502,6 @@ const ExperienceSection = ({ experience }) => {
 
             {/* Designation (Role) with Icon - FIXED Padding/Alignment */}
             <div className="flex items-center mb-2">
-              <ICON_MAP.Briefcase size={18} className="mr-2 text-indigo-600 dark:text-indigo-400" />
               <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
                 {job.role}
               </h4>
@@ -636,15 +635,15 @@ const ProjectCard = ({ project, onOpenMedia }) => {
               href={project.appStore}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center px-4 py-2 font-bold rounded-xl text-white shadow-lg transition-all duration-300 transform hover:scale-[1.02]
-                         bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-sm ring-2 ring-blue-400/50 dark:ring-blue-600/50"
-              style={{
-                fontWeight: 700,
-                letterSpacing: '0.5px',
-              }}
+              className="inline-flex items-center px-4 py-2 bg-black text-white rounded-lg shadow-md hover:shadow-lg transition transform hover:scale-105"
             >
-              <ICON_MAP.AppWindow size={16} className="mr-2" />
-              View on the App Store
+              {/* Apple SVG from assets */}
+              <img
+                src="/assets/apple.svg"
+                alt="Apple Logo"
+                className="w-5 h-5 mr-2"
+              />
+              <span className="text-sm font-bold">App Store</span>
             </a>
           )}
           <span className="flex items-center text-sm font-medium text-indigo-600 dark:text-indigo-400">
@@ -738,7 +737,7 @@ const EducationSection = ({ education, interests }) => {
           <div className="flex flex-wrap gap-2">
             {interests.map((interest, index) => (
               <span key={index} className="inline-flex items-center px-3 py-1 text-sm font-medium bg-gray-200/70 text-gray-800 rounded-full dark:bg-gray-600/70 dark:text-gray-200 transition-all shadow-sm backdrop-blur-sm">
-                <ICON_MAP.BookOpen size={16} className="mr-1 text-indigo-500 dark:text-indigo-400" /> {interest}
+                {interest}
               </span>
             ))}
           </div>
