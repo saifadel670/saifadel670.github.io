@@ -1,142 +1,142 @@
 import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import {
-    Briefcase, GraduationCap, Code, Mail, Phone, MapPin, Linkedin, Settings, Clock, Zap, BookOpen,
-    Anchor, CheckCircle, Smartphone, Sun, Moon, Feather, Image, Video, AppWindow, Activity, TestTube, Cpu, Layers, HardHat, ChevronsLeft, ChevronsRight, LogIn, LogOut, Menu
+  Briefcase, GraduationCap, Code, Mail, Phone, MapPin, Linkedin, Settings, Clock, Zap, BookOpen,
+  Anchor, CheckCircle, Smartphone, Sun, Moon, Feather, Image, Video, AppWindow, Activity, TestTube, Cpu, Layers, HardHat, ChevronsLeft, ChevronsRight, LogIn, LogOut, Menu
 } from 'lucide-react';
 
 const ICON_MAP = {
-    Briefcase, GraduationCap, Code, Mail, Phone, MapPin, Linkedin, Settings, Clock, Zap, BookOpen,
-    Anchor, CheckCircle, Smartphone, Sun, Moon, Feather, Image, Video, AppWindow, Activity, TestTube, Cpu, Layers, HardHat, ChevronsLeft, ChevronsRight, LogIn, LogOut, Menu
+  Briefcase, GraduationCap, Code, Mail, Phone, MapPin, Linkedin, Settings, Clock, Zap, BookOpen,
+  Anchor, CheckCircle, Smartphone, Sun, Moon, Feather, Image, Video, AppWindow, Activity, TestTube, Cpu, Layers, HardHat, ChevronsLeft, ChevronsRight, LogIn, LogOut, Menu
 };
 const SECTION_CONFIG = [
-    { id: 'skills', title: 'Technical Skills', iconKey: 'Code', isVisible: true },
-    { id: 'experience', title: 'Professional Experience', iconKey: 'Briefcase', isVisible: true },
-    { id: 'projects', title: 'Featured Projects', iconKey: 'Smartphone', isVisible: true },
-    { id: 'education', title: 'Education & Interests', iconKey: 'GraduationCap', isVisible: true },
+  { id: 'skills', title: 'Technical Skills', iconKey: 'Code', isVisible: true },
+  { id: 'experience', title: 'Professional Experience', iconKey: 'Briefcase', isVisible: true },
+  { id: 'projects', title: 'Featured Projects', iconKey: 'Smartphone', isVisible: true },
+  { id: 'education', title: 'Education & Interests', iconKey: 'GraduationCap', isVisible: true },
 ];
 
 const SKILL_CATEGORIES = [
-    { title: 'Languages & Frameworks', iconKey: 'Code', dataKey: 'languages_frameworks' },
-    { title: 'Architecture & Patterns', iconKey: 'Layers', dataKey: 'architecture_patterns' },
-    { title: 'Tools & Platforms', iconKey: 'Settings', dataKey: 'tools_platforms' },
-    { title: 'Testing', iconKey: 'TestTube', dataKey: 'testing' },
-    { title: 'Deployment & CI/CD', iconKey: 'Cpu', dataKey: 'devops' },
-    { title: 'Other Expertise', iconKey: 'HardHat', dataKey: 'other_skills' },
+  { title: 'Languages & Frameworks', iconKey: 'Code', dataKey: 'languages_frameworks' },
+  { title: 'Architecture & Patterns', iconKey: 'Layers', dataKey: 'architecture_patterns' },
+  { title: 'Tools & Platforms', iconKey: 'Settings', dataKey: 'tools_platforms' },
+  { title: 'Testing', iconKey: 'TestTube', dataKey: 'testing' },
+  { title: 'Deployment & CI/CD', iconKey: 'Cpu', dataKey: 'devops' },
+  { title: 'Other Expertise', iconKey: 'HardHat', dataKey: 'other_skills' },
 ];
 
 const PLACEHOLDER_ICONS = {
-    image: ICON_MAP.Image,
-    video: ICON_MAP.Video,
+  image: ICON_MAP.Image,
+  video: ICON_MAP.Video,
 };
 
 // --- 4. PORTFOLIO DATA (The Content) ---
 
 const PORTFOLIO_DATA = {
-    "personal_info": {
-        "name": "Saif Adel",
-        "title": "Experienced and impact-driven iOS Developer",
-        "location": "Khilkhet, Dhaka / Bangladesh",
-        "phone": "+880 1679 112358",
-        "email": "saifadel670@gmail.com",
-        "linkedin": "https://www.linkedin.com/in/saifadel",
-        "summary": "Experienced and impact-driven iOS Developer with over 5 years of hands-on experience building, scaling, and optimizing feature-rich mobile apps for leading tech companies and digital platforms in Bangladesh. Proven success in launching large-scale apps from scratch, accelerating release cycles, and delivering scalable, high-performance solutions. Recognized for leadership and innovation, including Banglalink's \"IMPACT CREATOR\" award for rapid product delivery and app success."
+  "personal_info": {
+    "name": "Saif Adel",
+    "title": "Experienced and impact-driven iOS Developer",
+    "location": "Khilkhet, Dhaka / Bangladesh",
+    "phone": "+880 1679 112358",
+    "email": "saifadel670@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/saifadel",
+    "summary": "Experienced and impact-driven iOS Developer with over 5 years of hands-on experience building, scaling, and optimizing feature-rich mobile apps for leading tech companies and digital platforms in Bangladesh. Proven success in launching large-scale apps from scratch, accelerating release cycles, and delivering scalable, high-performance solutions. Recognized for leadership and innovation, including Banglalink's \"IMPACT CREATOR\" award for rapid product delivery and app success."
+  },
+  "technical_skills": {
+    "languages_frameworks": ["Swift", "Objective-C", "SwiftUI", "UIKit", "Combine", "RxSwift"],
+    "architecture_patterns": ["Clean Architecture", "MVVM", "Coordinator pattern"],
+    "tools_platforms": ["Xcode", "Firebase", "Git", "Figma", "REST APIs", "GraphQL"],
+    "other_skills": ["Modularization", "Web3 Integration", "Crypto Wallets", "Agile/Scrum", "Jira", "CI/CD", "App Store Deployment", "App Performance Optimization"],
+    "testing": ["XCTest", "Quick & Nimble", "Unit & UI Testing"],
+    "devops": ["GitHub Actions"]
+  },
+  "professional_experience": [
+    {
+      "company": "Brain Station 23 PLC.",
+      "role": "Senior Software Engineer II",
+      "location": "02, Mohakhali C/A, Dhaka / Bangladesh",
+      "dates": "July 2023 - Present",
+      "details": "Worked as an augmented resource at Banglalink Digital, playing a pivotal role in launching **RYZE** from concept to reality and helping build the app from scratch. Architected its structure, implemented key features, and ensured seamless backend integration for scalability. Optimized the performance of the **MyBL** app, introducing new features that streamlined user interactions and significantly improved app stability. Accelerated release cycles, leading to increased user engagement, positive app store ratings, and notable revenue growth.",
+      "projects": ["ryze", "my_bl"]
     },
-    "technical_skills": {
-        "languages_frameworks": ["Swift", "Objective-C", "SwiftUI", "UIKit", "Combine", "RxSwift"],
-        "architecture_patterns": ["Clean Architecture", "MVVM", "Coordinator pattern"],
-        "tools_platforms": ["Xcode", "Firebase", "Git", "Figma", "REST APIs", "GraphQL"],
-        "other_skills": ["Modularization", "Web3 Integration", "Crypto Wallets", "Agile/Scrum", "Jira", "CI/CD", "App Store Deployment", "App Performance Optimization"],
-        "testing": ["XCTest", "Quick & Nimble", "Unit & UI Testing"],
-        "devops": ["GitHub Actions"]
+    {
+      "company": "Anchorblock Technology Limited",
+      "role": "Mobile Application Engineer",
+      "location": "H# 57, R# 4, B# C, Banani, Dhaka / Bangladesh",
+      "dates": "April 2022 - July 2023",
+      "details": "Led the mobile app team in building cutting-edge DeFi applications, focusing on integration solutions and cross-functional collaboration to deliver a seamless, high-performance crypto experience.",
+      "projects": ["anchor_swap"]
     },
-    "professional_experience": [
-        {
-            "company": "Brain Station 23 PLC.",
-            "role": "Senior Software Engineer II",
-            "location": "02, Mohakhali C/A, Dhaka / Bangladesh",
-            "dates": "July 2023 - Present",
-            "details": "Worked as an augmented resource at Banglalink Digital, playing a pivotal role in launching **RYZE** from concept to reality and helping build the app from scratch. Architected its structure, implemented key features, and ensured seamless backend integration for scalability. Optimized the performance of the **MyBL** app, introducing new features that streamlined user interactions and significantly improved app stability. Accelerated release cycles, leading to increased user engagement, positive app store ratings, and notable revenue growth.",
-            "projects": ["ryze", "my_bl"]
-        },
-        {
-            "company": "Anchorblock Technology Limited",
-            "role": "Mobile Application Engineer",
-            "location": "H# 57, R# 4, B# C, Banani, Dhaka / Bangladesh",
-            "dates": "April 2022 - July 2023",
-            "details": "Led the mobile app team in building cutting-edge DeFi applications, focusing on integration solutions and cross-functional collaboration to deliver a seamless, high-performance crypto experience.",
-            "projects": ["anchor_swap"]
-        },
-        {
-            "company": "Maya Digital Health Pte. Ltd.",
-            "role": "Software Engineer (iOS)",
-            "location": "Level 9, Plot 96, Bay's Bella Vista, Rd 11, Banani, Dhaka / Bangladesh",
-            "dates": "February 2021 - February 2022",
-            "details": "Led the revamp of their iOS app, transforming the platform into a seamless and user-friendly digital health solution. Focused on optimizing core features, including video/voice consultations and AI-driven search, contributing to a **30% improvement in app performance**. By redesigning the app's architecture and refining its UI/UX, I streamlined navigation and made health content more accessible.",
-            "projects": ["maya"]
-        },
-        {
-            "company": "Obboy Labs Ltd.",
-            "role": "Junior Software Engineer (iOS)",
-            "location": "Mirpur, Dhaka / Bangladesh",
-            "dates": "October 2019 - December 2020",
-            "details": "Worked on several iOS-based client apps, focusing on clean UI development, code optimization, and bug fixes. Collaborated in a fast-paced agile team and contributed to both app feature expansion and UI/UX improvements.",
-            "projects": []
-        }
-    ],
-    "projects": [
-        {
-            "name": "RYZE",
-            "tag": "ryze",
-            "project_info": "Telco app with dashboard-controlled modular features",
-            "description": "Spearheaded the development of business-guided modular features, ensuring on-time market launches to drive revenue and enhance user engagement. Driven the evolution of a dashboard-controlled, component-based iOS app, ensuring scalability and maintainability using Clean Architecture and the Coordinator pattern for seamless navigation. Accelerated time-to-market by delivering the MVP within 3 months and achieving a fully functional, business-ready release within 8 months, enabling the app to become a leading telco app in Bangladesh.",
-            "appStore": "https://apps.apple.com/us/app/ryze/id6475657753",
-            "thumbnail": "/assets/ryze/thumb_image.png",
-            "screenshots": ["/assets/ryze/image_1.png", "/assets/ryze/image_2.png", "/assets/ryze/image_3.png", "/assets/ryze/image_4.png", "/assets/ryze/image_5.png", "/assets/ryze/image_6.png"],
-            "intro_video": "/assets/ryze/promo_video.mp4",
-            "feature_videos": [],
-            "tech": ["Swift", "SwiftUI", "UIKit", "Combine", "Clean Architecture", "Coordinator Pattern"]
-        },
-        {
-            "name": "MyBL",
-            "tag": "my_bl",
-            "project_info": "Banglalink self-care app",
-            "description": "Optimized app performance by introducing new features that streamlined user interactions and significantly improved stability. Enhanced codebase efficiency, contributing to accelerated release cycles and quicker time-to-market for new features. Drove increased user engagement, positive app store ratings, and notable revenue growth through effective feature rollout and performance improvements as a key team player.",
-            "appStore": "https://apps.apple.com/us/app/mybl/id1454641124",
-            "thumbnail": "/assets/mybl/thumb_image.png",
-            "screenshots": ["/assets/mybl/image_1.png", "/assets/mybl/image_2.png", "/assets/mybl/image_3.png", "/assets/mybl/image_4.png"],
-            "intro_video": undefined, // Explicitly missing video
-            "feature_videos": [],
-            "tech": ["Swift", "UIKit", "Combine", "MVVM", "Clean Architecture"]
-        },
-        {
-            "name": "AnchorSwap",
-            "tag": "anchor_swap",
-            "project_info": "Next-gen DeFi app integrating Web3",
-            "description": "Engineered a next-gen mobile DeFi app that seamlessly integrates Web3 technology to provide secure, decentralized access to Anchor Swap's full suite of features. Delivered high-impact tools instant token swaps, liquidity provisioning, yield farming, NFTs, and gamified finance modules like Lottery and Prediction Market-within one unified platform. Designed a clean, intuitive interface and ensured top-tier performance, scalability, and cryptographic security to create a frictionless and future-ready DeFi experience.",
-            "thumbnail": "/assets/anchorswap/thumb_image.jpg",
-            "screenshots": ["/assets/anchorswap/image_1.jpg", "/assets/anchorswap/image_2.jpg", "/assets/anchorswap/image_3.jpg", "/assets/anchorswap/image_4.jpg", "/assets/anchorswap/image_5.jpg", "/assets/anchorswap/image_6.jpg", "/assets/anchorswap/image_7.jpg", "/assets/anchorswap/image_8.jpg"],
-            "intro_video": "/assets/anchorswap/anchor_swap_feature_demo.mp4",
-            "feature_videos": ["/assets/anchorswap/lottery.MOV", "/assets/anchorswap/nft_marketplace.MP4", "/assets/anchorswap/swap_coin.MP4", "/assets/anchorswap/prediction.MOV", "/assets/anchorswap/auction.MOV"],
-            "tech": ["Swift", "UIKit", "Web3", "Crypto Wallets", "DeFi", "Modular Architecture"]
-        },
-        {
-            "name": "Maya",
-            "tag": "maya",
-            "project_info": "Digital health app",
-            "description": "Led the iOS revamp of Maya, a leading digital health app offering on-demand access to expert medical advice through video/voice consultations, personalized Q&A, and wellness content. Rebuilt the app with a modern architecture and refined UI/UX to boost performance, streamline navigation, and enhance feature accessibility across real-time consultations, AI-driven search, and interactive health tools. Enhanced user engagement by developing and integrating health articles, period tracker, vaccine tracker, daily wellness tips, and pregnancy tracker features into a scalable iOS application.",
-            "appStore": "https://apps.apple.com/us/app/maya-digital-health/id995058774",
-            "thumbnail": "/assets/maya/thumb_image.jpg",
-            "screenshots": ["/assets/maya/image_1.jpg", "/assets/maya/image_2.jpg", "/assets/maya/image_3.jpg", "/assets/maya/image_4.jpg", "/assets/maya/image_5.jpg", "/assets/maya/image_6.jpg", "/assets/maya/image_7.jpg", "/assets/maya/image_8.jpg", "/assets/maya/image_9.jpg", "/assets/maya/image_10.jpg", "/assets/maya/image_11.jpg", "/assets/maya/image_12.jpg"],
-            "feature_videos": [],
-            "tech": ["Swift", "UIKit", "Combine", "MVVM", "Clean Architecture"]
-        }
-    ],
-    "education": {
-        "degree": "Bachelor of Science in Computer Science & Engineering",
-        "institution": "Independent University, Bangladesh",
-        "year": "Autumn 2019",
+    {
+      "company": "Maya Digital Health Pte. Ltd.",
+      "role": "Software Engineer (iOS)",
+      "location": "Level 9, Plot 96, Bay's Bella Vista, Rd 11, Banani, Dhaka / Bangladesh",
+      "dates": "February 2021 - February 2022",
+      "details": "Led the revamp of their iOS app, transforming the platform into a seamless and user-friendly digital health solution. Focused on optimizing core features, including video/voice consultations and AI-driven search, contributing to a **30% improvement in app performance**. By redesigning the app's architecture and refining its UI/UX, I streamlined navigation and made health content more accessible.",
+      "projects": ["maya"]
     },
-    "interests": ['Exploring new destinations through motorcycle touring', 'Mobile app UI/UX design trends'],
+    {
+      "company": "Obboy Labs Ltd.",
+      "role": "Junior Software Engineer (iOS)",
+      "location": "Mirpur, Dhaka / Bangladesh",
+      "dates": "October 2019 - December 2020",
+      "details": "Worked on several iOS-based client apps, focusing on clean UI development, code optimization, and bug fixes. Collaborated in a fast-paced agile team and contributed to both app feature expansion and UI/UX improvements.",
+      "projects": []
+    }
+  ],
+  "projects": [
+    {
+      "name": "RYZE",
+      "tag": "ryze",
+      "project_info": "Telco app with dashboard-controlled modular features",
+      "description": "Spearheaded the development of business-guided modular features, ensuring on-time market launches to drive revenue and enhance user engagement. Driven the evolution of a dashboard-controlled, component-based iOS app, ensuring scalability and maintainability using Clean Architecture and the Coordinator pattern for seamless navigation. Accelerated time-to-market by delivering the MVP within 3 months and achieving a fully functional, business-ready release within 8 months, enabling the app to become a leading telco app in Bangladesh.",
+      "appStore": "https://apps.apple.com/us/app/ryze/id6475657753",
+      "thumbnail": "/assets/ryze/thumb_image.png",
+      "screenshots": ["/assets/ryze/image_1.png", "/assets/ryze/image_2.png", "/assets/ryze/image_3.png", "/assets/ryze/image_4.png", "/assets/ryze/image_5.png", "/assets/ryze/image_6.png"],
+      "intro_video": "/assets/ryze/promo_video.mp4",
+      "feature_videos": [],
+      "tech": ["Swift", "SwiftUI", "UIKit", "Combine", "Clean Architecture", "Coordinator Pattern"]
+    },
+    {
+      "name": "MyBL",
+      "tag": "my_bl",
+      "project_info": "Banglalink self-care app",
+      "description": "Optimized app performance by introducing new features that streamlined user interactions and significantly improved stability. Enhanced codebase efficiency, contributing to accelerated release cycles and quicker time-to-market for new features. Drove increased user engagement, positive app store ratings, and notable revenue growth through effective feature rollout and performance improvements as a key team player.",
+      "appStore": "https://apps.apple.com/us/app/mybl/id1454641124",
+      "thumbnail": "/assets/mybl/thumb_image.png",
+      "screenshots": ["/assets/mybl/image_1.png", "/assets/mybl/image_2.png", "/assets/mybl/image_3.png", "/assets/mybl/image_4.png"],
+      "intro_video": undefined, // Explicitly missing video
+      "feature_videos": [],
+      "tech": ["Swift", "UIKit", "Combine", "MVVM", "Clean Architecture"]
+    },
+    {
+      "name": "AnchorSwap",
+      "tag": "anchor_swap",
+      "project_info": "Next-gen DeFi app integrating Web3",
+      "description": "Engineered a next-gen mobile DeFi app that seamlessly integrates Web3 technology to provide secure, decentralized access to Anchor Swap's full suite of features. Delivered high-impact tools instant token swaps, liquidity provisioning, yield farming, NFTs, and gamified finance modules like Lottery and Prediction Market-within one unified platform. Designed a clean, intuitive interface and ensured top-tier performance, scalability, and cryptographic security to create a frictionless and future-ready DeFi experience.",
+      "thumbnail": "/assets/anchorswap/thumb_image.jpg",
+      "screenshots": ["/assets/anchorswap/image_1.jpg", "/assets/anchorswap/image_2.jpg", "/assets/anchorswap/image_3.jpg", "/assets/anchorswap/image_4.jpg", "/assets/anchorswap/image_5.jpg", "/assets/anchorswap/image_6.jpg", "/assets/anchorswap/image_7.jpg", "/assets/anchorswap/image_8.jpg"],
+      "intro_video": "/assets/anchorswap/anchor_swap_feature_demo.mp4",
+      "feature_videos": ["/assets/anchorswap/lottery.MOV", "/assets/anchorswap/nft_marketplace.MP4", "/assets/anchorswap/swap_coin.MP4", "/assets/anchorswap/prediction.MOV", "/assets/anchorswap/auction.MOV"],
+      "tech": ["Swift", "UIKit", "Web3", "Crypto Wallets", "DeFi", "Modular Architecture"]
+    },
+    {
+      "name": "Maya",
+      "tag": "maya",
+      "project_info": "Digital health app",
+      "description": "Led the iOS revamp of Maya, a leading digital health app offering on-demand access to expert medical advice through video/voice consultations, personalized Q&A, and wellness content. Rebuilt the app with a modern architecture and refined UI/UX to boost performance, streamline navigation, and enhance feature accessibility across real-time consultations, AI-driven search, and interactive health tools. Enhanced user engagement by developing and integrating health articles, period tracker, vaccine tracker, daily wellness tips, and pregnancy tracker features into a scalable iOS application.",
+      "appStore": "https://apps.apple.com/us/app/maya-digital-health/id995058774",
+      "thumbnail": "/assets/maya/thumb_image.jpg",
+      "screenshots": ["/assets/maya/image_1.jpg", "/assets/maya/image_2.jpg", "/assets/maya/image_3.jpg", "/assets/maya/image_4.jpg", "/assets/maya/image_5.jpg", "/assets/maya/image_6.jpg", "/assets/maya/image_7.jpg", "/assets/maya/image_8.jpg", "/assets/maya/image_9.jpg", "/assets/maya/image_10.jpg", "/assets/maya/image_11.jpg", "/assets/maya/image_12.jpg"],
+      "feature_videos": [],
+      "tech": ["Swift", "UIKit", "Combine", "MVVM", "Clean Architecture"]
+    }
+  ],
+  "education": {
+    "degree": "Bachelor of Science in Computer Science & Engineering",
+    "institution": "Independent University, Bangladesh",
+    "year": "Autumn 2019",
+  },
+  "interests": ['Exploring new destinations through motorcycle touring', 'Mobile app UI/UX design trends'],
 }
 // --- UTILITY HOOKS & COMPONENTS ---
 
@@ -171,67 +171,68 @@ const useDarkMode = () => {
 // --- 7. MODAL COMPONENT (NEW) ---
 
 const MediaModal = ({ isOpen, media, onClose }) => {
-    const modalRef = useRef(null);
+  const modalRef = useRef(null);
 
-    // Close on escape key
-    useEffect(() => {
-        const handleKey = (event) => {
-            if (event.key === 'Escape' && isOpen) {
-                onClose();
-            }
-        };
-        document.addEventListener('keydown', handleKey);
-        return () => document.removeEventListener('keydown', handleKey);
-    }, [isOpen, onClose]);
+  // Close on escape key
+  useEffect(() => {
+    const handleKey = (event) => {
+      if (event.key === 'Escape' && isOpen) {
+        onClose();
+      }
+    };
+    document.addEventListener('keydown', handleKey);
+    return () => document.removeEventListener('keydown', handleKey);
+  }, [isOpen, onClose]);
 
-    // Handle click outside modal content
-    const handleBackdropClick = useCallback(
-        (event) => {
-            if (modalRef.current && modalRef.current === event.target) {
-                onClose();
-            }
-        },
-        [onClose]
-    );
+  // Handle click outside modal content
+  const handleBackdropClick = useCallback(
+    (event) => {
+      if (modalRef.current && modalRef.current === event.target) {
+        onClose();
+      }
+    },
+    [onClose]
+  );
 
-    if (!isOpen) return null;
+  if (!isOpen) return null;
 
-    return (
-        <div
-            ref={modalRef}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/20 backdrop-blur-xl transition-opacity duration-300"
-            onClick={handleBackdropClick}
-        >
-            <div className="relative max-h-[80vh] w-auto max-w-[90vw] flex flex-col items-center">
-                {/* Media Title */}
-                <h4 className="text-white text-center text-lg font-semibold mb-2 truncate max-w-full">
-                    {media.title || 'Media Preview'}
-                </h4>
+  return (
+    <div
+      ref={modalRef}
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 transition-opacity duration-300"
+      onClick={handleBackdropClick}
+    >
+      <div className="relative max-h-[80vh] w-auto max-w-[90vw] flex flex-col items-center">
+        {/* Media Title */}
+        <h4 className="text-white text-center text-lg font-semibold mb-2 truncate max-w-full">
+          {media.title || 'Media Preview'}
+        </h4>
 
-                {/* Media Content */}
-                <div className="bg-white/10 border border-white/20 rounded-xl overflow-hidden shadow-2xl flex items-center justify-center backdrop-blur-lg">
-                    {media.type === 'image' ? (
-                        <img
-                            src={media.path}
-                            alt={media.title}
-                            className="max-h-[80vh] max-w-[90vw] object-contain"
-                        />
-                    ) : (
-                        <video
-                            src={media.path}
-                            className="max-h-[80vh] max-w-[90vw] object-contain"
-                            controls
-                            autoPlay
-                            loop
-                            playsInline
-                        >
-                            Your browser does not support the video tag.
-                        </video>
-                    )}
-                </div>
-            </div>
+        {/* Media Content */}
+        <div className="bg-white/10 border border-white/20 rounded-xl overflow-hidden shadow-2xl flex items-center justify-center backdrop-blur-lg">
+          {media.type === 'image' ? (
+            <img
+              src={media.path}
+              alt={media.title}
+              className="max-h-[75vh] max-w-[85vw] object-contain"
+            />
+          ) : (
+            <video
+              src={media.path}
+              className="max-h-[80vh] max-w-[90vw] object-contain"
+              controls
+              autoPlay
+              loop
+              playsInline
+              style={{ display: "block" }}
+            >
+              Your browser does not support the video tag.
+            </video>
+          )}
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 
@@ -290,7 +291,7 @@ const MediaPlaceholder = ({ type, assetPath, isMain = false }) => {
 
   // Determine size classes
   // Removed explicit min-h for isMain to let aspect-video container control it
-  const sizeClasses = isMain ? '' : 'min-h-[120px]'; 
+  const sizeClasses = isMain ? '' : 'min-h-[120px]';
   // Use a common class set for both media and placeholder containers
   const containerClasses = `rounded-lg h-full w-full ${sizeClasses}`;
   const mediaClasses = `${containerClasses} object-cover`;
@@ -349,7 +350,7 @@ const MediaPlaceholder = ({ type, assetPath, isMain = false }) => {
 
 const HeaderSection = ({ data }) => (
   // Added pt-16 for desktop to prevent content overlap with sticky nav.
-  <header className="text-center mt-4 pt-4 lg:pt-16 pb-10 px-4 mb-10"> 
+  <header className="text-center mt-4 pt-4 lg:pt-16 pb-10 px-4 mb-10">
     {/* Initials Avatar */}
     <div className="bg-indigo-600 w-24 h-24 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-4xl font-extrabold tracking-widest shadow-inner ring-4 ring-indigo-300 dark:ring-indigo-700">
       {data.name.split(' ').map(n => n[0]).join('')}
@@ -379,7 +380,7 @@ const HeaderSection = ({ data }) => (
 );
 
 const SkillsSection = ({ skills }) => {
-    // Use SKILL_CATEGORIES config
+  // Use SKILL_CATEGORIES config
   const categories = useMemo(() => {
     return SKILL_CATEGORIES.map(category => ({
       ...category,
@@ -394,10 +395,10 @@ const SkillsSection = ({ skills }) => {
 
 
   return (
-    <SectionCard 
-        id="skills" 
-        title={sectionConfig?.title || 'Skills'} 
-        icon={SectionIcon}
+    <SectionCard
+      id="skills"
+      title={sectionConfig?.title || 'Skills'}
+      icon={SectionIcon}
     >
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {categories.map((category, index) => (
@@ -425,65 +426,65 @@ const ExperienceSection = ({ experience }) => {
   const SectionIcon = ICON_MAP[sectionConfig?.iconKey];
 
   return (
-    <SectionCard 
-    id="experience" 
-    title={sectionConfig?.title || 'Experience'} 
-    icon={SectionIcon}
-  >
-    <ol className="relative border-l border-gray-200 dark:border-gray-700 ml-2">
-      {experience.map((job, index) => (
-        <li key={index} className="mb-10 ml-6 p-4 bg-white/50 dark:bg-gray-700/50 rounded-lg backdrop-blur-sm border border-gray-100 dark:border-gray-600 transition-shadow hover:shadow-lg">
-          <span className="absolute flex items-center justify-center w-6 h-6 bg-indigo-200 rounded-full -left-3 ring-8 ring-white dark:ring-gray-800 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200">
-            {index === 0 ? <ICON_MAP.Zap size={14} /> : <ICON_MAP.Anchor size={14} />}
-          </span>
-          
-          {/* Company Name and Dates */}
-          <div className="flex justify-between items-center mb-1">
+    <SectionCard
+      id="experience"
+      title={sectionConfig?.title || 'Experience'}
+      icon={SectionIcon}
+    >
+      <ol className="relative border-l border-gray-200 dark:border-gray-700 ml-2">
+        {experience.map((job, index) => (
+          <li key={index} className="mb-10 ml-6 p-4 bg-white/50 dark:bg-gray-700/50 rounded-lg backdrop-blur-sm border border-gray-100 dark:border-gray-600 transition-shadow hover:shadow-lg">
+            <span className="absolute flex items-center justify-center w-6 h-6 bg-indigo-200 rounded-full -left-3 ring-8 ring-white dark:ring-gray-800 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200">
+              {index === 0 ? <ICON_MAP.Zap size={14} /> : <ICON_MAP.Anchor size={14} />}
+            </span>
+
+            {/* Company Name and Dates */}
+            <div className="flex justify-between items-center mb-1">
               <h3 className="text-xl font-bold text-gray-900 dark:text-white">{job.company}</h3>
               <time className="text-sm font-normal text-gray-500 dark:text-gray-400">{job.dates}</time>
-          </div>
+            </div>
 
-          {/* Designation (Role) with Icon - FIXED Padding/Alignment */}
-          <div className="flex items-center mb-2">
+            {/* Designation (Role) with Icon - FIXED Padding/Alignment */}
+            <div className="flex items-center mb-2">
               <ICON_MAP.Briefcase size={18} className="mr-2 text-indigo-600 dark:text-indigo-400" />
               <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
-                  {job.role}
+                {job.role}
               </h4>
               {index === 0 && (
-                  <span className="bg-indigo-100 text-indigo-800 text-xs font-medium px-2 py-0.5 rounded-full ml-3 dark:bg-indigo-900 dark:text-indigo-300">
-                      Current
-                  </span>
+                <span className="bg-indigo-100 text-indigo-800 text-xs font-medium px-2 py-0.5 rounded-full ml-3 dark:bg-indigo-900 dark:text-indigo-300">
+                  Current
+                </span>
               )}
-          </div>
-
-          {/* Location */}
-          <p className="block mb-2 text-sm font-normal leading-none text-gray-500 dark:text-gray-400 flex items-center">
-              <ICON_MAP.MapPin size={14} className="mr-1" /> {job.location}
-          </p>
-
-          <p className="text-gray-600 dark:text-gray-400 space-y-2 mt-3 text-sm" dangerouslySetInnerHTML={{ __html: job.details }} />
-
-          {job.projects && job.projects.length > 0 && (
-            <div className="mt-3">
-              <span className="text-xs font-bold text-indigo-700 dark:text-indigo-300 uppercase block mb-1">Related Projects:</span>
-              <div className="flex flex-wrap gap-2">
-                {job.projects.map(tag => (
-                  <a
-                    key={tag}
-                    href={`#project-${tag}`}
-                    className="flex items-center text-xs font-medium text-indigo-500 dark:text-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-300 transition hover:underline"
-                  >
-                    <ICON_MAP.Smartphone size={14} className="mr-1" />
-                    {PORTFOLIO_DATA.projects.find(p => p.tag === tag)?.name || tag}
-                  </a>
-                ))}
-              </div>
             </div>
-          )}
-        </li>
-      ))}
-    </ol>
-  </SectionCard>
+
+            {/* Location */}
+            <p className="block mb-2 text-sm font-normal leading-none text-gray-500 dark:text-gray-400 flex items-center">
+              <ICON_MAP.MapPin size={14} className="mr-1" /> {job.location}
+            </p>
+
+            <p className="text-gray-600 dark:text-gray-400 space-y-2 mt-3 text-sm" dangerouslySetInnerHTML={{ __html: job.details }} />
+
+            {job.projects && job.projects.length > 0 && (
+              <div className="mt-3">
+                <span className="text-xs font-bold text-indigo-700 dark:text-indigo-300 uppercase block mb-1">Related Projects:</span>
+                <div className="flex flex-wrap gap-2">
+                  {job.projects.map(tag => (
+                    <a
+                      key={tag}
+                      href={`#project-${tag}`}
+                      className="flex items-center text-xs font-medium text-indigo-500 dark:text-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-300 transition hover:underline"
+                    >
+                      <ICON_MAP.Smartphone size={14} className="mr-1" />
+                      {PORTFOLIO_DATA.projects.find(p => p.tag === tag)?.name || tag}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+          </li>
+        ))}
+      </ol>
+    </SectionCard>
   );
 };
 
@@ -515,7 +516,7 @@ const ProjectCard = ({ project, onOpenMedia }) => {
     if (hasThumbnail) {
       return { type: 'image', path: project.thumbnail };
     }
-    return { type: 'image', path: 'No media assets available' }; 
+    return { type: 'image', path: 'No media assets available' };
   }, [project.intro_video, project.thumbnail]);
 
 
@@ -533,7 +534,7 @@ const ProjectCard = ({ project, onOpenMedia }) => {
 
   useEffect(() => {
     const currentRef = scrollRef.current;
-    handleScroll(); 
+    handleScroll();
     if (currentRef) {
       currentRef.addEventListener('scroll', handleScroll);
     }
@@ -550,10 +551,10 @@ const ProjectCard = ({ project, onOpenMedia }) => {
     <div id={`project-${project.tag}`} className="bg-white/50 dark:bg-gray-700/50 rounded-xl shadow-inner overflow-hidden border border-gray-200 dark:border-gray-600 transform hover:scale-[1.01] transition-all duration-300 backdrop-blur-sm">
       {/* Main Media Area (Video/Thumbnail Priority) */}
       <div className="aspect-video w-full bg-black">
-        <MediaPlaceholder 
-          type={mainMedia.type} 
-          assetPath={mainMedia.path} 
-          isMain={true} 
+        <MediaPlaceholder
+          type={mainMedia.type}
+          assetPath={mainMedia.path}
+          isMain={true}
         />
       </div>
 
@@ -636,18 +637,18 @@ const ProjectsSection = ({ projects, onOpenMedia }) => {
   const sectionConfig = SECTION_CONFIG.find(s => s.id === 'projects');
   const SectionIcon = ICON_MAP[sectionConfig?.iconKey];
 
-   return (
-    <SectionCard 
-    id="projects" 
-    title={sectionConfig?.title || 'Projects'} 
-    icon={SectionIcon}
-  >
-    <div className="grid grid-cols-1 gap-10">
-      {projects.map(project => (
-        <ProjectCard key={project.tag} project={project} onOpenMedia={onOpenMedia} />
-      ))}
-    </div>
-  </SectionCard>
+  return (
+    <SectionCard
+      id="projects"
+      title={sectionConfig?.title || 'Projects'}
+      icon={SectionIcon}
+    >
+      <div className="grid grid-cols-1 gap-10">
+        {projects.map(project => (
+          <ProjectCard key={project.tag} project={project} onOpenMedia={onOpenMedia} />
+        ))}
+      </div>
+    </SectionCard>
   );
 };
 
@@ -657,37 +658,37 @@ const EducationSection = ({ education, interests }) => {
   const SectionIcon = ICON_MAP[sectionConfig?.iconKey];
 
   return (
-    <SectionCard 
-    id="education" 
-    title={sectionConfig?.title || 'Education'} 
-    icon={SectionIcon}
-  >
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-      {/* Education */}
-      <div className="p-4 bg-gray-50/70 dark:bg-gray-700/70 rounded-xl border border-gray-200 dark:border-gray-600 shadow-md backdrop-blur-sm">
-        <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-3 flex items-center">
-          <ICON_MAP.GraduationCap size={20} className="mr-2 text-indigo-600 dark:text-indigo-400" /> Education
-        </h4>
-        <p className="text-lg font-semibold text-indigo-700 dark:text-indigo-300">{education.degree}</p>
-        <p className="text-md text-gray-600 dark:text-gray-400 mb-1">{education.institution}</p>
-        <p className="text-sm text-gray-500 dark:text-gray-500">{education.year}</p>
-      </div>
+    <SectionCard
+      id="education"
+      title={sectionConfig?.title || 'Education'}
+      icon={SectionIcon}
+    >
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Education */}
+        <div className="p-4 bg-gray-50/70 dark:bg-gray-700/70 rounded-xl border border-gray-200 dark:border-gray-600 shadow-md backdrop-blur-sm">
+          <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-3 flex items-center">
+            <ICON_MAP.GraduationCap size={20} className="mr-2 text-indigo-600 dark:text-indigo-400" /> Education
+          </h4>
+          <p className="text-lg font-semibold text-indigo-700 dark:text-indigo-300">{education.degree}</p>
+          <p className="text-md text-gray-600 dark:text-gray-400 mb-1">{education.institution}</p>
+          <p className="text-sm text-gray-500 dark:text-gray-500">{education.year}</p>
+        </div>
 
-      {/* Interests */}
-      <div className="p-4 bg-gray-50/70 dark:bg-gray-700/70 rounded-xl border border-gray-200 dark:border-gray-600 shadow-md backdrop-blur-sm">
-        <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-3 flex items-center">
-          <ICON_MAP.Feather size={20} className="mr-2 text-indigo-600 dark:text-indigo-400" /> Interests
-        </h4>
-        <div className="flex flex-wrap gap-2">
-          {interests.map((interest, index) => (
-            <span key={index} className="inline-flex items-center px-3 py-1 text-sm font-medium bg-gray-200/70 text-gray-800 rounded-full dark:bg-gray-600/70 dark:text-gray-200 transition-all shadow-sm backdrop-blur-sm">
-              <ICON_MAP.BookOpen size={16} className="mr-1 text-indigo-500 dark:text-indigo-400" /> {interest}
-            </span>
-          ))}
+        {/* Interests */}
+        <div className="p-4 bg-gray-50/70 dark:bg-gray-700/70 rounded-xl border border-gray-200 dark:border-gray-600 shadow-md backdrop-blur-sm">
+          <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-3 flex items-center">
+            <ICON_MAP.Feather size={20} className="mr-2 text-indigo-600 dark:text-indigo-400" /> Interests
+          </h4>
+          <div className="flex flex-wrap gap-2">
+            {interests.map((interest, index) => (
+              <span key={index} className="inline-flex items-center px-3 py-1 text-sm font-medium bg-gray-200/70 text-gray-800 rounded-full dark:bg-gray-600/70 dark:text-gray-200 transition-all shadow-sm backdrop-blur-sm">
+                <ICON_MAP.BookOpen size={16} className="mr-1 text-indigo-500 dark:text-indigo-400" /> {interest}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
-  </SectionCard>
+    </SectionCard>
   );
 };
 
@@ -730,7 +731,7 @@ const App = () => {
         });
       },
       // Root margins adjusted to trigger detection when section fills more of the viewport center
-      { rootMargin: '-30% 0px -60% 0px', threshold: 0 } 
+      { rootMargin: '-30% 0px -60% 0px', threshold: 0 }
     );
 
     visibleSections.forEach(item => {
@@ -747,14 +748,14 @@ const App = () => {
     // Offset the scroll to account for the sticky header (approx 64px based on h-16 + padding)
     const element = document.getElementById(id);
     if (element) {
-        const offset = 64; 
-        const elementPosition = element.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - offset;
+      const offset = 64;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
 
-        window.scrollTo({
-            top: offsetPosition,
-            behavior: "smooth"
-        });
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
     }
     setIsMenuOpen(false); // Close menu after selection on mobile
   }, []);
@@ -779,40 +780,40 @@ const App = () => {
             border-radius: 4px;
         }
       `}</style>
-      
+
       {/* FIXED THEME TOGGLE BUTTON (New Top-Right Placement) */}
       <div className="fixed top-4 right-4 z-50">
-          <button
-              onClick={() => setIsDarkMode(prev => !prev)}
-              title={isDarkMode ? 'Toggle Light Mode' : 'Toggle Dark Mode'}
-              className="p-3 rounded-full bg-white dark:bg-gray-700 shadow-xl text-gray-700 dark:text-gray-300 hover:ring-4 ring-indigo-500/50 dark:ring-indigo-400/50 transition-all duration-300"
-          >
-              {isDarkMode ? <ICON_MAP.Sun size={20} /> : <ICON_MAP.Moon size={20} />}
-          </button>
+        <button
+          onClick={() => setIsDarkMode(prev => !prev)}
+          title={isDarkMode ? 'Toggle Light Mode' : 'Toggle Dark Mode'}
+          className="p-3 rounded-full bg-white dark:bg-gray-700 shadow-xl text-gray-700 dark:text-gray-300 hover:ring-4 ring-indigo-500/50 dark:ring-indigo-400/50 transition-all duration-300"
+        >
+          {isDarkMode ? <ICON_MAP.Sun size={20} /> : <ICON_MAP.Moon size={20} />}
+        </button>
       </div>
 
       {/* MOBILE MENU TOGGLE BUTTON (Fixed bottom-right for easy access) */}
       <div className="lg:hidden fixed bottom-4 right-4 z-50">
-          <button
-              onClick={() => setIsMenuOpen(prev => !prev)}
-              title={isMenuOpen ? "Close Navigation Menu" : "Open Navigation Menu"}
-              className={`p-3 rounded-full shadow-2xl transition-all duration-300 transform 
-                         ${isMenuOpen 
-                           ? 'bg-indigo-600/90 text-white hover:bg-indigo-700/90 ring-4 ring-indigo-500/50' 
-                           : 'bg-white/90 dark:bg-gray-700/90 text-gray-800 dark:text-gray-200 hover:bg-white dark:hover:bg-gray-600 ring-2 ring-gray-300/50 dark:ring-gray-600/50'}
+        <button
+          onClick={() => setIsMenuOpen(prev => !prev)}
+          title={isMenuOpen ? "Close Navigation Menu" : "Open Navigation Menu"}
+          className={`p-3 rounded-full shadow-2xl transition-all duration-300 transform 
+                         ${isMenuOpen
+              ? 'bg-indigo-600/90 text-white hover:bg-indigo-700/90 ring-4 ring-indigo-500/50'
+              : 'bg-white/90 dark:bg-gray-700/90 text-gray-800 dark:text-gray-200 hover:bg-white dark:hover:bg-gray-600 ring-2 ring-gray-300/50 dark:ring-gray-600/50'}
                          backdrop-blur-sm`}
-          >
-            {isMenuOpen ? <ICON_MAP.ChevronsRight size={20} /> : <ICON_MAP.Menu size={20} />}
-          </button>
+        >
+          {isMenuOpen ? <ICON_MAP.ChevronsRight size={20} /> : <ICON_MAP.Menu size={20} />}
+        </button>
       </div>
 
       <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
 
         {/* 1. STICKY SIDEBAR NAVIGATION (Section Links) - MOVED TO TOP OF CONTAINER */}
         {visibleSections.length > 0 && (
-            // The nav is sticky on desktop (lg:sticky lg:top-4) and acts as a fixed drawer on mobile
-            <nav 
-                className={`
+          // The nav is sticky on desktop (lg:sticky lg:top-4) and acts as a fixed drawer on mobile
+          <nav
+            className={`
                     fixed inset-0 z-40 backdrop-blur-lg transform transition-transform duration-300 lg:static lg:transform-none lg:z-30
                     ${isMenuOpen ? 'translate-x-0 bg-white dark:bg-gray-800' : 'translate-x-full lg:translate-x-0'}
                     
@@ -820,37 +821,37 @@ const App = () => {
                     lg:sticky lg:top-4 lg:w-full 
                     lg:bg-white/90 lg:dark:bg-gray-800/90 lg:shadow-xl lg:rounded-xl lg:p-3 lg:mb-10 lg:border lg:border-gray-200 lg:dark:border-gray-700/50
                 `}
-            >
-                {/* Nav Links */}
-                <div className="w-full h-full lg:h-auto overflow-y-auto custom-scrollbar pt-6 lg:pt-0">
-                    <ul className="flex flex-col lg:flex-row lg:justify-center space-y-2 lg:space-y-0 lg:space-x-6 p-6 lg:p-0">
-                        {visibleSections.map(item => {
-                            const isActive = activeSection === item.id;
-                            const Icon = ICON_MAP[item.iconKey];
-                            return (
-                                <li key={item.id} className="w-full lg:w-auto">
-                                    <button
-                                        onClick={() => {
-                                            scrollToSection(item.id);
-                                            setActiveSection(item.id); // Also set active state immediately for feedback
-                                        }}
-                                        className={`
+          >
+            {/* Nav Links */}
+            <div className="w-full h-full lg:h-auto overflow-y-auto custom-scrollbar pt-6 lg:pt-0">
+              <ul className="flex flex-col lg:flex-row lg:justify-center space-y-2 lg:space-y-0 lg:space-x-6 p-6 lg:p-0">
+                {visibleSections.map(item => {
+                  const isActive = activeSection === item.id;
+                  const Icon = ICON_MAP[item.iconKey];
+                  return (
+                    <li key={item.id} className="w-full lg:w-auto">
+                      <button
+                        onClick={() => {
+                          scrollToSection(item.id);
+                          setActiveSection(item.id); // Also set active state immediately for feedback
+                        }}
+                        className={`
                                             flex items-center p-3 rounded-xl font-medium transition-all duration-300 whitespace-nowrap justify-start lg:justify-center text-lg lg:text-base
                                             ${isActive
-                                                ? 'bg-indigo-100/70 text-indigo-700 dark:bg-indigo-800/70 dark:text-indigo-100 shadow-inner'
-                                                : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100/70 dark:hover:bg-gray-700/70'
-                                            } backdrop-blur-sm w-full
+                            ? 'bg-indigo-100/70 text-indigo-700 dark:bg-indigo-800/70 dark:text-indigo-100 shadow-inner'
+                            : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100/70 dark:hover:bg-gray-700/70'
+                          } backdrop-blur-sm w-full
                                         `}
-                                    >
-                                        <Icon size={18} className="mr-3 lg:mr-2" />
-                                        <span>{item.title}</span>
-                                    </button>
-                                </li>
-                            );
-                        })}
-                    </ul>
-                </div>
-            </nav>
+                      >
+                        <Icon size={18} className="mr-3 lg:mr-2" />
+                        <span>{item.title}</span>
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          </nav>
         )}
 
         {/* 2. HEADER/SUMMARY SECTION - Adjusted top padding to clear the sticky nav */}
@@ -860,16 +861,16 @@ const App = () => {
         <main>
           {visibleSections.map(section => {
             switch (section.id) {
-                case 'skills':
-                    return <SkillsSection key="skills" skills={PORTFOLIO_DATA.technical_skills} />;
-                case 'experience':
-                    return <ExperienceSection key="experience" experience={PORTFOLIO_DATA.professional_experience} />;
-                case 'projects':
-                    return <ProjectsSection key="projects" projects={PORTFOLIO_DATA.projects} onOpenMedia={openModal} />;
-                case 'education':
-                    return <EducationSection key="education" education={PORTFOLIO_DATA.education} interests={PORTFOLIO_DATA.interests} />;
-                default:
-                    return null;
+              case 'skills':
+                return <SkillsSection key="skills" skills={PORTFOLIO_DATA.technical_skills} />;
+              case 'experience':
+                return <ExperienceSection key="experience" experience={PORTFOLIO_DATA.professional_experience} />;
+              case 'projects':
+                return <ProjectsSection key="projects" projects={PORTFOLIO_DATA.projects} onOpenMedia={openModal} />;
+              case 'education':
+                return <EducationSection key="education" education={PORTFOLIO_DATA.education} interests={PORTFOLIO_DATA.interests} />;
+              default:
+                return null;
             }
           })}
         </main>
