@@ -219,7 +219,7 @@ const MediaModal = ({ isOpen, media, onClose }) => {
           ) : (
             <video
               src={media.path}
-              className="max-h-[80vh] max-w-[90vw] object-contain"
+              className="max-h-[75vh] max-w-[85vw] object-contain"
               controls
               autoPlay
               loop
