@@ -34,8 +34,10 @@ const PLACEHOLDER_ICONS = {
 const PORTFOLIO_DATA = {
   "personal_info": {
     "name": "Saif Adel",
+    "image": "/assets/profile_picture.jpeg",
     "title": "Experienced and impact-driven iOS Developer",
-    "location": "Khilkhet, Dhaka / Bangladesh",
+    "location": "Dhaka / Bangladesh",
+    "location_url": "https://maps.app.goo.gl/1krQDj2sMS3RkN8A9",
     "phone": "+880 1679 112358",
     "email": "saifadel670@gmail.com",
     "linkedin": "https://www.linkedin.com/in/saifadel",
@@ -103,7 +105,7 @@ const PORTFOLIO_DATA = {
       "description": "Optimized app performance by introducing new features that streamlined user interactions and significantly improved stability. Enhanced codebase efficiency, contributing to accelerated release cycles and quicker time-to-market for new features. Drove increased user engagement, positive app store ratings, and notable revenue growth through effective feature rollout and performance improvements as a key team player.",
       "appStore": "https://apps.apple.com/us/app/mybl/id1454641124",
       "thumbnail": "/assets/mybl/thumb_image.png",
-      "screenshots": ["/assets/mybl/image_1.png","/assets/mybl/image_2.png","/assets/mybl/image_3.png","/assets/mybl/image_4.png","/assets/mybl/image_5.png","/assets/mybl/image_6.png","/assets/mybl/image_7.png","/assets/mybl/image_8.png","/assets/mybl/image_9.png","/assets/mybl/image_10.png"],
+      "screenshots": ["/assets/mybl/image_1.png", "/assets/mybl/image_2.png", "/assets/mybl/image_3.png", "/assets/mybl/image_4.png", "/assets/mybl/image_5.png", "/assets/mybl/image_6.png", "/assets/mybl/image_7.png", "/assets/mybl/image_8.png", "/assets/mybl/image_9.png", "/assets/mybl/image_10.png"],
       "intro_video": undefined, // Explicitly missing video
       "feature_videos": [],
       "tech": ["Swift", "UIKit", "Combine", "MVVM", "Clean Architecture"]
@@ -114,7 +116,7 @@ const PORTFOLIO_DATA = {
       "project_info": "Next-gen DeFi app integrating Web3",
       "description": "Engineered a next-gen mobile DeFi app that seamlessly integrates Web3 technology to provide secure, decentralized access to Anchor Swap's full suite of features. Delivered high-impact tools instant token swaps, liquidity provisioning, yield farming, NFTs, and gamified finance modules like Lottery and Prediction Market-within one unified platform. Designed a clean, intuitive interface and ensured top-tier performance, scalability, and cryptographic security to create a frictionless and future-ready DeFi experience.",
       "thumbnail": "/assets/anchorswap/thumb_image.jpg",
-      "screenshots": ["/assets/anchorswap/image_1.png","/assets/anchorswap/image_2.png","/assets/anchorswap/image_3.png","/assets/anchorswap/image_4.png","/assets/anchorswap/image_5.png","/assets/anchorswap/image_6.png","/assets/anchorswap/image_7.png","/assets/anchorswap/image_8.png"],
+      "screenshots": ["/assets/anchorswap/image_1.png", "/assets/anchorswap/image_2.png", "/assets/anchorswap/image_3.png", "/assets/anchorswap/image_4.png", "/assets/anchorswap/image_5.png", "/assets/anchorswap/image_6.png", "/assets/anchorswap/image_7.png", "/assets/anchorswap/image_8.png"],
       "intro_video": "/assets/anchorswap/anchor_swap_feature_demo.mp4",
       "feature_videos": ["/assets/anchorswap/lottery.mp4", "/assets/anchorswap/nft_marketplace.mp4", "/assets/anchorswap/swap_coin.mp4", "/assets/anchorswap/prediction.mp4", "/assets/anchorswap/auction.mp4"],
       "tech": ["Swift", "UIKit", "Web3", "Crypto Wallets", "DeFi", "Modular Architecture"]
@@ -349,35 +351,89 @@ const MediaPlaceholder = ({ type, assetPath, isMain = false }) => {
 // --- 3. CONTENT SECTIONS ---
 
 const HeaderSection = ({ data }) => (
-  // Added pt-16 for desktop to prevent content overlap with sticky nav.
   <header className="text-center mt-4 pt-4 lg:pt-16 pb-10 px-4 mb-10">
-    {/* Initials Avatar */}
-    <div className="bg-indigo-600 w-24 h-24 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-4xl font-extrabold tracking-widest shadow-inner ring-4 ring-indigo-300 dark:ring-indigo-700">
-      {data.name.split(' ').map(n => n[0]).join('')}
+    {/* Avatar */}
+    <div className="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden shadow-inner ring-4 ring-indigo-300 dark:ring-indigo-700">
+      {data.image ? (
+        <img
+          src={data.image}
+          alt={data.name}
+          className="w-full h-full object-cover object-center"
+        />
+      ) : (
+        <div className="bg-indigo-600 w-full h-full flex items-center justify-center text-white text-4xl font-extrabold tracking-widest">
+          {data.name
+            .split(' ')
+            .map(n => n[0])
+            .join('')}
+        </div>
+      )}
     </div>
-    <h2 className="text-4xl font-extrabold text-gray-900 dark:text-white leading-tight mb-2">
-      {data.title}
+
+    {/* Name */}
+    <h2 className="text-4xl font-extrabold text-gray-900 dark:text-white leading-tight mb-1">
+      {data.name}
     </h2>
 
-    <div className="max-w-3xl mx-auto text-gray-700 dark:text-gray-300 mt-6">
+    {/* Title */}
+    <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-1">
+      {data.title}
+    </h3>
+
+    {/* Location */}
+    {data.location && (
+      <p className="flex items-center justify-center text-gray-500 dark:text-gray-400 text-sm mb-4">
+        <ICON_MAP.MapPin size={16} className="mr-1" />
+        {data.location_url ? (
+          <a
+            href={data.location_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:underline text-gray-500 dark:text-gray-400"
+          >
+            {data.location}
+          </a>
+        ) : (
+          data.location
+        )}
+      </p>
+    )}
+
+    {/* Summary */}
+    <div className="max-w-3xl mx-auto text-gray-700 dark:text-gray-300 mt-4">
       <p className="text-lg leading-relaxed italic border-l-4 border-indigo-400 pl-4 py-1">
         {data.summary}
       </p>
     </div>
 
+    {/* Contact Links */}
     <div className="mt-8 flex flex-wrap justify-center gap-6 text-sm">
-      <a href={`mailto:${data.email}`} className="flex items-center text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-200 transition">
+      <a
+        href={`mailto:${data.email}`}
+        className="flex items-center text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-200 transition"
+      >
         <ICON_MAP.Mail size={16} className="mr-1" /> {data.email}
       </a>
-      <a href={`tel:${data.phone}`} className="flex items-center text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+      <a
+        href={`tel:${data.phone}`}
+        className="flex items-center text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition"
+      >
         <ICON_MAP.Phone size={16} className="mr-1" /> {data.phone}
       </a>
-      <a href={data.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-200 transition">
+      <a
+        href={data.linkedin}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-200 transition"
+      >
         <ICON_MAP.Linkedin size={16} className="mr-1" /> LinkedIn Profile
       </a>
     </div>
   </header>
 );
+
+
+
 
 const SkillsSection = ({ skills }) => {
   // Use SKILL_CATEGORIES config
