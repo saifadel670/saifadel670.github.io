@@ -117,8 +117,8 @@ const PORTFOLIO_DATA = {
       "description": "Engineered a next-gen mobile DeFi app that seamlessly integrates Web3 technology to provide secure, decentralized access to Anchor Swap's full suite of features. Delivered high-impact tools instant token swaps, liquidity provisioning, yield farming, NFTs, and gamified finance modules like Lottery and Prediction Market-within one unified platform. Designed a clean, intuitive interface and ensured top-tier performance, scalability, and cryptographic security to create a frictionless and future-ready DeFi experience.",
       "thumbnail": "/assets/anchorswap/thumb_image.jpg",
       "screenshots": ["/assets/anchorswap/image_1.png", "/assets/anchorswap/image_2.png", "/assets/anchorswap/image_3.png", "/assets/anchorswap/image_4.png", "/assets/anchorswap/image_5.png", "/assets/anchorswap/image_6.png", "/assets/anchorswap/image_7.png", "/assets/anchorswap/image_8.png"],
-      "intro_video": "/assets/anchorswap/anchor_swap_feature_demo.mp4",
-      "feature_videos": ["/assets/anchorswap/lottery.mp4", "/assets/anchorswap/nft_marketplace.mp4", "/assets/anchorswap/swap_coin.mp4", "/assets/anchorswap/prediction.mp4", "/assets/anchorswap/auction.mp4"],
+      "intro_video": undefined,
+      "feature_videos": ["/assets/anchorswap/anchor_swap_feature_demo.mp4", "/assets/anchorswap/lottery.mp4", "/assets/anchorswap/nft_marketplace.mp4", "/assets/anchorswap/swap_coin.mp4", "/assets/anchorswap/prediction.mp4", "/assets/anchorswap/auction.mp4"],
       "tech": ["Swift", "UIKit", "Web3", "Crypto Wallets", "DeFi", "Modular Architecture"]
     },
     {
