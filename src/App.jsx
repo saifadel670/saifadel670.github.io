@@ -932,9 +932,26 @@ const App = () => {
         </main>
 
         {/* Footer */}
-        <footer className="py-6 mt-10 text-center border-t border-gray-200 dark:border-gray-700 flex flex-col sm:flex-row justify-center items-center gap-4">
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            &copy; {new Date().getFullYear()} {PORTFOLIO_DATA.personal_info.name}. Built with React & Tailwind CSS.
+        <footer className="py-8 mt-12 text-center border-t border-indigo-200/50 dark:border-indigo-900/50 flex flex-col justify-center items-center gap-4">
+          <p className="text-md font-semibold text-indigo-700 dark:text-indigo-400">
+            Got a vision? Let's build it.
+          </p>
+          <p className="text-sm text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
+            This site demonstrates my commitment to **modern, efficient development** and **impeccable design**. 
+            <br className="hidden sm:inline" />
+            **Ready to create your next stunning application?**
+          </p>
+          {/* Subtle CTA to Contact */}
+          <a
+            href={`mailto:${PORTFOLIO_DATA.personal_info.email}`}
+            className="inline-flex items-center px-5 py-2 mt-2 text-sm font-bold rounded-full text-white bg-indigo-600 shadow-lg shadow-indigo-500/50 hover:bg-indigo-700 transition-all duration-300 transform hover:scale-[1.03] ring-4 ring-indigo-300/50 dark:ring-indigo-700/50"
+          >
+            <ICON_MAP.Mail size={16} className="mr-2" />
+            Start a Conversation
+          </a>
+
+          <p className="text-xs mt-4 text-gray-400 dark:text-gray-500">
+            &copy; {new Date().getFullYear()} {PORTFOLIO_DATA.personal_info.name}. All rights reserved.
           </p>
         </footer>
       </div>
