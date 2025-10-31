@@ -103,7 +103,7 @@ const PORTFOLIO_DATA = {
       "description": "Optimized app performance by introducing new features that streamlined user interactions and significantly improved stability. Enhanced codebase efficiency, contributing to accelerated release cycles and quicker time-to-market for new features. Drove increased user engagement, positive app store ratings, and notable revenue growth through effective feature rollout and performance improvements as a key team player.",
       "appStore": "https://apps.apple.com/us/app/mybl/id1454641124",
       "thumbnail": "/assets/mybl/thumb_image.png",
-      "screenshots": ["/assets/mybl/image_1.png", "/assets/mybl/image_2.png", "/assets/mybl/image_3.png", "/assets/mybl/image_4.png"],
+      "screenshots": ["/assets/mybl/image_1.png","/assets/mybl/image_2.png","/assets/mybl/image_3.png","/assets/mybl/image_4.png","/assets/mybl/image_5.png","/assets/mybl/image_6.png","/assets/mybl/image_7.png","/assets/mybl/image_8.png","/assets/mybl/image_9.png","/assets/mybl/image_10.png"],
       "intro_video": undefined, // Explicitly missing video
       "feature_videos": [],
       "tech": ["Swift", "UIKit", "Combine", "MVVM", "Clean Architecture"]
@@ -114,9 +114,9 @@ const PORTFOLIO_DATA = {
       "project_info": "Next-gen DeFi app integrating Web3",
       "description": "Engineered a next-gen mobile DeFi app that seamlessly integrates Web3 technology to provide secure, decentralized access to Anchor Swap's full suite of features. Delivered high-impact tools instant token swaps, liquidity provisioning, yield farming, NFTs, and gamified finance modules like Lottery and Prediction Market-within one unified platform. Designed a clean, intuitive interface and ensured top-tier performance, scalability, and cryptographic security to create a frictionless and future-ready DeFi experience.",
       "thumbnail": "/assets/anchorswap/thumb_image.jpg",
-      "screenshots": ["/assets/anchorswap/image_1.jpg", "/assets/anchorswap/image_2.jpg", "/assets/anchorswap/image_3.jpg", "/assets/anchorswap/image_4.jpg", "/assets/anchorswap/image_5.jpg", "/assets/anchorswap/image_6.jpg", "/assets/anchorswap/image_7.jpg", "/assets/anchorswap/image_8.jpg"],
+      "screenshots": ["/assets/anchorswap/image_1.png","/assets/anchorswap/image_2.png","/assets/anchorswap/image_3.png","/assets/anchorswap/image_4.png","/assets/anchorswap/image_5.png","/assets/anchorswap/image_6.png","/assets/anchorswap/image_7.png","/assets/anchorswap/image_8.png"],
       "intro_video": "/assets/anchorswap/anchor_swap_feature_demo.mp4",
-      "feature_videos": ["/assets/anchorswap/lottery.MOV", "/assets/anchorswap/nft_marketplace.MP4", "/assets/anchorswap/swap_coin.MP4", "/assets/anchorswap/prediction.MOV", "/assets/anchorswap/auction.MOV"],
+      "feature_videos": ["/assets/anchorswap/lottery.mp4", "/assets/anchorswap/nft_marketplace.mp4", "/assets/anchorswap/swap_coin.mp4", "/assets/anchorswap/prediction.mp4", "/assets/anchorswap/auction.mp4"],
       "tech": ["Swift", "UIKit", "Web3", "Crypto Wallets", "DeFi", "Modular Architecture"]
     },
     {
