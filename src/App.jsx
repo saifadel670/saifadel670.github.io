@@ -12,7 +12,7 @@ const SECTION_CONFIG = [
   { id: 'skills', title: 'Technical Skills', iconKey: 'Code', isVisible: true },
   { id: 'experience', title: 'Professional Experience', iconKey: 'Briefcase', isVisible: true },
   { id: 'projects', title: 'Featured Projects', iconKey: 'Smartphone', isVisible: true },
-  { id: 'education', title: 'Education & Interests', iconKey: 'GraduationCap', isVisible: true },
+  { id: 'education', title: 'Education & Interests', iconKey: 'GraduationCap', isVisible: false },
 ];
 
 const SKILL_CATEGORIES = [
