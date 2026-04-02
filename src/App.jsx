@@ -41,23 +41,31 @@ const PORTFOLIO_DATA = {
     "phone": "+880 1679 112358",
     "email": "saifadel670@gmail.com",
     "linkedin": "https://www.linkedin.com/in/saifadel",
-    "summary": "Experienced and impact-driven iOS Developer with over 5 years of hands-on experience building, scaling, and optimizing feature-rich mobile apps for leading tech companies and digital platforms in Bangladesh. Proven success in launching large-scale apps from scratch, accelerating release cycles, and delivering scalable, high-performance solutions. Recognized for leadership and innovation, including Banglalink's \"IMPACT CREATOR\" award for rapid product delivery and app success."
+    "summary": "Experienced and impact-driven iOS Developer with over 6 years of experience building, scaling, and optimizing feature-rich mobile applications. Currently working remotely at Fin.com, leveraging AI-assisted development and modern SwiftUI and Combine architecture. Proven track record of launching large-scale apps from scratch, accelerating release cycles, and delivering scalable, high-performance solutions. Recognized for leadership and innovation, including Banglalink's \"IMPACT CREATOR\" award for rapid product delivery and app success."
   },
   "technical_skills": {
     "languages_frameworks": ["Swift", "Objective-C", "SwiftUI", "UIKit", "Combine", "RxSwift"],
     "architecture_patterns": ["Clean Architecture", "MVVM", "Coordinator pattern"],
     "tools_platforms": ["Xcode", "Firebase", "Git", "Figma", "REST APIs", "GraphQL"],
-    "other_skills": ["Modularization", "Web3 Integration", "Crypto Wallets", "Agile/Scrum", "Jira", "CI/CD", "App Store Deployment", "App Performance Optimization"],
+    "other_skills": ["Modularization", "Web3 Integration", "Crypto Wallets", "AI-Assisted Development", "Agile/Scrum", "Jira", "CI/CD", "App Store Deployment", "App Performance Optimization"],
     "testing": ["XCTest", "Quick & Nimble", "Unit & UI Testing"],
     "devops": ["GitHub Actions"]
   },
   "professional_experience": [
     {
+      "company": "Fin.com",
+      "role": "Senior Software Engineer",
+      "location": "New York, USA (Remote) ",
+      "dates": "January 2026 - Present",
+      "details": "Leading iOS development initiatives at a fintech platform, completely revamping the iOS application using modern **SwiftUI** and **Combine** architecture. Integrated **1Money partner APIs** to enable seamless customer onboarding and financial transactions (on-ramp/off-ramp). Built sophisticated **Slack-based automation** for business onboarding workflows and connected **RFI (Request for Information) workflows** with Slack for enhanced operational efficiency. Leveraged **Claude AI** extensively throughout the development lifecycle for code generation, debugging, and rapid prototyping.",
+      "projects": ["fin"]
+    },
+    {
       "company": "Brain Station 23 PLC.",
       "role": "Senior Software Engineer II",
       "location": "02, Mohakhali C/A, Dhaka / Bangladesh",
-      "dates": "July 2023 - Present",
-      "details": "Worked as an augmented resource at Banglalink Digital, playing a pivotal role in launching **RYZE** from concept to reality and helping build the app from scratch. Architected its structure, implemented key features, and ensured seamless backend integration for scalability. Optimized the performance of the **MyBL** app, introducing new features that streamlined user interactions and significantly improved app stability. Accelerated release cycles, leading to increased user engagement, positive app store ratings, and notable revenue growth.",
+      "dates": "July 2023 - December 2025",
+      "details": "Worked as an augmented resource at Banglalink Digital, playing a pivotal role in launching **RYZE** from concept to reality and helping build the app from scratch. Architected its structure, implemented key features, and ensured seamless backend integration for scalability. Optimized the performance of the **MyBL** app, introducing new features that streamlined user interactions and significantly improved app stability. Accelerated release cycles, leading to increased user engagement, positive app store ratings, and notable revenue growth. Received Banglalink's **IMPACT CREATOR** award for exceptional product delivery.",
       "projects": ["ryze", "my_bl"]
     },
     {
@@ -131,6 +139,11 @@ const PORTFOLIO_DATA = {
       "screenshots": ["/assets/maya/image_1.jpg", "/assets/maya/image_2.jpg", "/assets/maya/image_3.jpg", "/assets/maya/image_4.jpg", "/assets/maya/image_5.jpg", "/assets/maya/image_6.jpg", "/assets/maya/image_7.jpg", "/assets/maya/image_8.jpg", "/assets/maya/image_9.jpg", "/assets/maya/image_10.jpg", "/assets/maya/image_11.jpg", "/assets/maya/image_12.jpg"],
       "feature_videos": [],
       "tech": ["Swift", "UIKit", "Combine", "MVVM", "Clean Architecture"]
+    },
+    {
+      "name": "Fin.com - Borderless Transfers",
+      "tag": "fin",
+      "appStore": "https://apps.apple.com/us/app/fin-com-borderless-transfers/id6446427666"
     }
   ],
   "education": {
@@ -140,6 +153,17 @@ const PORTFOLIO_DATA = {
   },
   "interests": ['Exploring new destinations through motorcycle touring', 'Mobile app UI/UX design trends'],
 }
+
+// Helper to determine if project should appear in Featured Projects section
+const isFeaturedProject = (project) => {
+  return !!(
+    project.description &&
+    project.thumbnail &&
+    project.tech &&
+    project.tech.length > 0
+  );
+};
+
 // --- UTILITY HOOKS & COMPONENTS ---
 
 /**
@@ -481,6 +505,12 @@ const ExperienceSection = ({ experience }) => {
   const sectionConfig = SECTION_CONFIG.find(s => s.id === 'experience');
   const SectionIcon = ICON_MAP[sectionConfig?.iconKey];
 
+  // Pre-compute set of featured project tags for O(1) lookup
+  const featuredTags = useMemo(
+    () => new Set(PORTFOLIO_DATA.projects.filter(isFeaturedProject).map(p => p.tag)),
+    []
+  );
+
   return (
     <SectionCard
       id="experience"
@@ -523,16 +553,31 @@ const ExperienceSection = ({ experience }) => {
               <div className="mt-3">
                 <span className="text-xs font-bold text-indigo-700 dark:text-indigo-300 uppercase block mb-1">Related Projects:</span>
                 <div className="flex flex-wrap gap-2">
-                  {job.projects.map(tag => (
-                    <a
-                      key={tag}
-                      href={`#project-${tag}`}
-                      className="flex items-center text-xs font-medium text-indigo-500 dark:text-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-300 transition hover:underline"
-                    >
-                      <ICON_MAP.Smartphone size={14} className="mr-1" />
-                      {PORTFOLIO_DATA.projects.find(p => p.tag === tag)?.name || tag}
-                    </a>
-                  ))}
+                  {job.projects.map(tag => {
+                    const project = PORTFOLIO_DATA.projects.find(p => p.tag === tag);
+                    const isFeatured = featuredTags.has(tag);
+
+                    // Featured projects use anchor navigation, minimal projects use App Store link
+                    const href = isFeatured
+                      ? `#project-${tag}`
+                      : (project?.appStore || '#');
+                    const target = isFeatured ? undefined : "_blank";
+                    const rel = isFeatured ? undefined : "noopener noreferrer";
+
+                    return (
+                      <a
+                        key={tag}
+                        href={href}
+                        target={target}
+                        rel={rel}
+                        className="flex items-center text-xs font-medium text-indigo-500 dark:text-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-300 transition hover:underline"
+                        title={isFeatured ? 'View project details below' : 'View on App Store'}
+                      >
+                        <ICON_MAP.Smartphone size={14} className="mr-1" />
+                        {project?.name || tag}
+                      </a>
+                    );
+                  })}
                 </div>
               </div>
             )}
@@ -692,6 +737,12 @@ const ProjectsSection = ({ projects, onOpenMedia }) => {
   const sectionConfig = SECTION_CONFIG.find(s => s.id === 'projects');
   const SectionIcon = ICON_MAP[sectionConfig?.iconKey];
 
+  // Filter to only show projects with full details
+  const featuredProjects = useMemo(
+    () => projects.filter(isFeaturedProject),
+    [projects]
+  );
+
   return (
     <SectionCard
       id="projects"
@@ -699,7 +750,7 @@ const ProjectsSection = ({ projects, onOpenMedia }) => {
       icon={SectionIcon}
     >
       <div className="grid grid-cols-1 gap-10">
-        {projects.map(project => (
+        {featuredProjects.map(project => (
           <ProjectCard key={project.tag} project={project} onOpenMedia={onOpenMedia} />
         ))}
       </div>
